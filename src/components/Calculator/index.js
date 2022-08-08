@@ -3,22 +3,29 @@ import './style.scss';
 
 const Calculator = () => {
  const [number, setNumber] = React.useState('');
- const [sign, setSign ] = React.useState('');
+ const [ equal, setEqual ] = React.useState('');
 
  const handleNumberClick = (event) => {
     setNumber(number => number += event.target.value);
-    console.log(number);
+    //console.log(number);
   };
+
+  const handleEqualClick = (event) => {
+ //parseInt(number);
+ let test = eval(number);
+ console.log(test);
+ setEqual(equal=> test);
+  }
 
   return(
   <div className="calculator">
     <p className="brand">caz-io</p>
-    <div className="screen">{number}</div>
+    <div className="screen">{equal ? equal : number}</div>
       <div className="container">
       <button className="grid-item blue">AC</button>
       <button className="grid-item blue">+/-</button>
-      <button className="grid-item blue" onClick={handleNumberClick}>%</button>  
-      <button className="grid-item light-blue">/</button>
+      <button className="grid-item blue" value='%'>%</button>  
+      <button className="grid-item light-blue" onClick={handleNumberClick} value="/">/</button>
       <button className="grid-item" onClick={handleNumberClick} value="7">7</button>
       <button className="grid-item" onClick={handleNumberClick} value="8">8</button>  
       <button className="grid-item" onClick={handleNumberClick} value="9">9</button>
@@ -33,7 +40,7 @@ const Calculator = () => {
       <button className="grid-item light-blue" onClick={handleNumberClick} value='+'>+</button>
       <button className="grid-item double" onClick={handleNumberClick} value="0">0</button>
       <button className="grid-item" onClick={handleNumberClick} value=".">.</button> 
-      <button className="grid-item light-blue">=</button>
+      <button className="grid-item light-blue" onClick={handleEqualClick}>=</button>
     </div>
   </div>
  );

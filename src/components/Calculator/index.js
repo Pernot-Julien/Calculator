@@ -10,10 +10,11 @@ const Calculator = () => {
   };
 
   const handleEqualClick = (event) => {
-    const operator = eval(number);
+    const operator = eval(number.replace("--", '+'));
     console.log(operator);
     const substrOperator = operator.toString().substr(0, 7);
     setEqual(equal=> substrOperator);
+    setNumber(number => substrOperator);
   };
 
   const handleClearButton = (event) => {
@@ -30,10 +31,12 @@ const Calculator = () => {
     setNumber(number => number += targetValue);
   }
 
+
+
   return(
   <div className="calculator">
     <p className="brand">caz-io</p>
-    <div className="screen">{equal ? equal : number.toString().substr(0 , 7)}</div>
+    <div className="screen">{number ? number : equal}</div>
       <div className="container">
       <button className="grid-item blue" onClick={handleClearButton} >AC</button>
       <button className="grid-item blue" onClick={handleNumberClick} value="-" >+/-</button>
@@ -56,7 +59,7 @@ const Calculator = () => {
       <button className="grid-item light-blue" onClick={handleEqualClick}>=</button>
     </div>
   </div>
- );
+ );tart
 };
 
 export default Calculator;

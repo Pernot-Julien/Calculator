@@ -9,17 +9,20 @@ const Calculator = () => {
  const numberSet = (string) => {
     const stringSplit = string.split('');
     console.log(stringSplit, 'conversion du string en tableau');
+
+
     for ( const i in stringSplit) {
       console.log(i, 'numéro index');
       console.log(stringSplit[i], "valeur de l'index");
 
       if(stringSplit[i] == "+" || stringSplit[i] == "-" || stringSplit[i] == "*" || stringSplit[i] == "/"){
-        const numberI= i;
-        const firstSlice = stringSplit.slice(numberI, stringSplit.length);
-        const result = firstSlice.slice(1, firstSlice.length)
+        const iteratorValue= i;
+        const firstSlice = stringSplit.slice(iteratorValue, stringSplit.length);
+        const result = firstSlice.slice(1, firstSlice.length);
         console.log(result, 'resultat de ma fonction');
       };
     };
+    
 };
 
 

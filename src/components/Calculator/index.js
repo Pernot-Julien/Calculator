@@ -7,23 +7,22 @@ const Calculator = () => {
  const [lastNumber, setLastNumber ] = React.useState('');
 
  const numberSet = (string) => {
-    const stringSplit = string.split('');
+    const stringSplit = string.split('').reverse(); 
     console.log(stringSplit, 'conversion du string en tableau');
 
 
     for ( const i in stringSplit) {
-      console.log(i, 'numéro index');
-      console.log(stringSplit[i], "valeur de l'index");
-
+     // console.log(i, 'numéro index');
+    //  console.log(stringSplit[i], "valeur de l'index");
       if(stringSplit[i] == "+" || stringSplit[i] == "-" || stringSplit[i] == "*" || stringSplit[i] == "/"){
         const iteratorValue= i;
-        const firstSlice = stringSplit.slice(iteratorValue, stringSplit.length);
-        const result = firstSlice.slice(1, firstSlice.length);
-        console.log(result, 'resultat de ma fonction');
+        const firstSlice = stringSplit.slice(0, iteratorValue).reverse().join("");
+      //  console.log(firstSlice, 'premiere decoupe du tableau');
+        return firstSlice;
       };
     };
-    
-};
+
+ };
 
 
  const handleNumberClick = (event) => {
@@ -55,7 +54,9 @@ const Calculator = () => {
   const handleNegativeClick = (event) => {
     setNumber(number => number += event.target.value);
     console.log(number ,'mon state number');
-    console.log(numberSet(number), "resultat final");
+    const lastNumberValue = numberSet(number);
+    setLastNumber (lastNumber => lastNumberValue);
+
     
     };
 

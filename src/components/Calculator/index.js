@@ -12,12 +12,12 @@ const Calculator = () => {
 
 
     for ( const i in stringSplit) {
-     // console.log(i, 'numéro index');
-    //  console.log(stringSplit[i], "valeur de l'index");
-      if(stringSplit[i] == "+" || stringSplit[i] == "-" || stringSplit[i] == "*" || stringSplit[i] == "/"){
+      console.log(i, 'numéro index');
+     console.log(stringSplit[i], "valeur de l'index");
+      if(stringSplit[i] == "+" || stringSplit[i] == "*" || stringSplit[i] == "/"){
         const iteratorValue= i;
         const firstSlice = stringSplit.slice(0, iteratorValue).reverse().join("");
-      //  console.log(firstSlice, 'premiere decoupe du tableau');
+        console.log(firstSlice, 'premiere decoupe du tableau')
         return firstSlice;
       };
     };
@@ -45,18 +45,19 @@ const Calculator = () => {
 
   const handleSignClick = (event) => {
     const targetValue = event.target.value;
-    if ((number.slice(-1) == "+") || (number.slice(-1) == "-") || (number.slice(-1) == "/" ) || (number.slice(-1) == "*") ) {
+    if ((number.slice(-1) == "+") || (number.slice(-1) == "-") || (number.slice(-1) == "/" ) || (number.slice(-1) == "*") ){
      setNumber(number => number.substring(0, number.length -1));
     }
     setNumber(number => number += targetValue);
   };
 
   const handleNegativeClick = (event) => {
-    setNumber(number => number += event.target.value);
-    console.log(number ,'mon state number');
-    const lastNumberValue = numberSet(number);
-    setLastNumber (lastNumber => lastNumberValue);
-
+   setNumber(number => number += event.target.value);
+    console.log(number.slice(-2), 'slice 2');
+    if (number.slice(-2) == "--" || number.slice(-2) == '+-') {
+      console.log('ca marche');
+      setNumber(number => number.substring(0, number.length-1), " est ce qUE C EST PAREI");
+    };
     
     };
 

@@ -3,12 +3,13 @@ import './style.scss';
 
 const Calculator = () => {
  const [number, setNumber] = React.useState('');
- const [ equal, setEqual ] = React.useState('');
- const [lastNumber, setLastNumber ] = React.useState('');
+ const [equal, setEqual ] = React.useState('');
+ const [numberPercent, setNumberPercent ] = React.useState('');
+ const [ numberAddToPercent, setNumberAddToPercent ] = React.useState('');
 
- const numberSet = (string) => {
+/*  const numberSet = (string) => {
     const stringSplit = string.split('').reverse(); 
-    console.log(stringSplit, 'conversion du string en tableau');
+    console.log(stringSplit, 'conversion du string en tableau');yarn start
 
 
     for ( const i in stringSplit) {
@@ -21,13 +22,36 @@ const Calculator = () => {
         return firstSlice;
       };
     };
+ }; */
 
+ const percentCalcul =(string) => {
+  const reverseString = string.split('').reverse();
+  console.log  (reverseString, 'Mon tableau retournée');
+
+
+  for (const i in reverseString ) {
+    console.log(i, 'numéro de mon index');
+   // console.log(reverseString[i], 'valeur de mon index');
+    if (reverseString[i] == '+' || reverseString[i] == '/' ||reverseString[i] == '*'){
+     const numberCut =reverseString.slice(0, i).reverse().join('');
+     setNumberPercent (numberPercent => numberCut);
+     const numberWithoutPercent = number.replace('%', '');
+     console.log(numberWithoutPercent, 'mon number sans le %');
+     const numberToApplyPercent = (eval(numberWithoutPercent) - numberCut);
+     console.log (numberToApplyPercent, 'Mon nombre auquel je dois appliquer le %')
+     console.log(numberCut, 'pourcentage à appliquer');
+     const numberToAdd = ((numberToApplyPercent * numberCut) / 100);
+     console.log(numberToAdd, 'resultat du pourcentage a additionner a number')
+     setNumberAddToPercent(numberAddToPercent => numberToAdd);
+    }
+  }
  };
 
+ 
+console.log();
 
  const handleNumberClick = (event) => {
     setNumber(number => number += event.target.value);
-    console.log(number);
   };
 
   const handleEqualClick = (event) => {
@@ -58,8 +82,14 @@ const Calculator = () => {
       console.log('ca marche');
       setNumber(number => number.substring(0, number.length-1), " est ce qUE C EST PAREI");
     };
-    
     };
+
+  const handlePercentClick = (event) => {
+    setNumber(number => number += event.target.value);
+    
+    percentCalcul(number);;
+  };
+
 
  // console.log(numberSet ("1+56+338"));
   return(
@@ -69,7 +99,7 @@ const Calculator = () => {
       <div className="container">
       <button className="grid-item blue" onClick={handleClearButton} >AC</button>
       <button className="grid-item blue" onClick={handleNegativeClick} value="-" >+/-</button>
-      <button className="grid-item blue" value='%'>%</button>  
+      <button className="grid-item blue" onClick={handlePercentClick} value='%'>%</button>  
       <button className="grid-item light-blue" onClick={handleSignClick} value="/">/</button>
       <button className="grid-item" onClick={handleNumberClick} value="7">7</button>
       <button className="grid-item" onClick={handleNumberClick} value="8">8</button>  

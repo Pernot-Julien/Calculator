@@ -6,31 +6,15 @@ const Calculator = () => {
  const [equal, setEqual ] = React.useState('');
  const [numberPercent, setNumberPercent ] = React.useState('');
  const [ numberAddToPercent, setNumberAddToPercent ] = React.useState('');
-
-/*  const numberSet = (string) => {
-    const stringSplit = string.split('').reverse(); 
-    console.log(stringSplit, 'conversion du string en tableau');yarn start
-
-
-    for ( const i in stringSplit) {
-      console.log(i, 'numéro index');
-     console.log(stringSplit[i], "valeur de l'index");
-      if(stringSplit[i] == "+" || stringSplit[i] == "*" || stringSplit[i] == "/"){
-        const iteratorValue= i;
-        const firstSlice = stringSplit.slice(0, iteratorValue).reverse().join("");
-        console.log(firstSlice, 'premiere decoupe du tableau')
-        return firstSlice;
-      };
-    };
- }; */
+ const [ operationWithPercent, setOperationWithPercent ] = React.useState( false );
+ const [firstNumberPercent, setFirstNumberPercent ]  = React.useState( '' );
 
  const percentCalcul =(string) => {
-  const reverseString = string.split('').reverse();
-  console.log  (reverseString, 'Mon tableau retournée');
-
-
-  for (const i in reverseString ) {
-    console.log(i, 'numéro de mon index');
+   setOperationWithPercent (operationWithPercent => true);
+   const reverseString = string.split('').reverse();
+   console.log  (reverseString, 'Mon tableau retournée');
+      for (const i in reverseString ) {
+      console.log(i, 'numéro de mon index');
    // console.log(reverseString[i], 'valeur de mon index');
     if (reverseString[i] == '+' || reverseString[i] == '/' ||reverseString[i] == '*'){
      const numberCut =reverseString.slice(0, i).reverse().join('');
@@ -39,32 +23,40 @@ const Calculator = () => {
      console.log(numberWithoutPercent, 'mon number sans le %');
      const numberToApplyPercent = (eval(numberWithoutPercent) - numberCut);
      console.log (numberToApplyPercent, 'Mon nombre auquel je dois appliquer le %')
+     setFirstNumberPercent(firstNumberPercent => numberToApplyPercent);
      console.log(numberCut, 'pourcentage à appliquer');
      const numberToAdd = ((numberToApplyPercent * numberCut) / 100);
      console.log(numberToAdd, 'resultat du pourcentage a additionner a number')
      setNumberAddToPercent(numberAddToPercent => numberToAdd);
-    }
-  }
+    };
+  };
  };
-
- 
-console.log();
 
  const handleNumberClick = (event) => {
     setNumber(number => number += event.target.value);
   };
 
   const handleEqualClick = (event) => {
+    if(number.includes('%')) {
+      const resultPercentOperation = eval(firstNumberPercent + numberAddToPercent);
+      console.log(resultPercentOperation, 'mon fucking resultat');
+      setNumber( number => resultPercentOperation) ;
+    } else
+   { console.log(number, 'fdsfdsfsdf');
     const operator = eval(number.replace("--", '+'));
-    //console.log(operator);
+   // console.log(operator, 'operator');
     const substrOperator = operator.toString().substr(0, 7);
     setEqual(equal=> substrOperator);
-    setNumber(number => substrOperator);
+    setNumber(number => substrOperator);}
   };
 
   const handleClearButton = (event) => {
     setNumber(number => "");
     setEqual(equal => "");
+    setNumberPercent(numberPercent => "");
+    setNumberAddToPercent(setNumberPercent => "")
+    setOperationWithPercent(operationWithPercent => false);
+    setFirstNumberPercent(firstNumberPercent => "");
   };
 
   const handleSignClick = (event) => {
@@ -86,16 +78,13 @@ console.log();
 
   const handlePercentClick = (event) => {
     setNumber(number => number += event.target.value);
-    
-    percentCalcul(number);;
+    percentCalcul(number);
   };
 
-
- // console.log(numberSet ("1+56+338"));
   return(
   <div className="calculator">
     <p className="brand">caz-io</p>
-    <div className="screen">{number ? number : equal}</div>
+    <div className="screen">{ number }</div>
       <div className="container">
       <button className="grid-item blue" onClick={handleClearButton} >AC</button>
       <button className="grid-item blue" onClick={handleNegativeClick} value="-" >+/-</button>
@@ -118,7 +107,7 @@ console.log();
       <button className="grid-item light-blue" onClick={handleEqualClick}>=</button>
     </div>
   </div>
- );tart
+ );
 };
 
 export default Calculator;

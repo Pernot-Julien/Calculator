@@ -37,11 +37,17 @@ const Calculator = () => {
   };
 
   const handleEqualClick = (event) => {
-    if(number.includes('%')) {
+    if(number.includes('%') && number.includes('+')) {
       const resultPercentOperation = eval(firstNumberPercent + numberAddToPercent);
       console.log(resultPercentOperation, 'mon fucking resultat');
       setNumber( number => resultPercentOperation) ;
-    } else
+    } else if                                                                        //! gestion de la soustraction du pourcentage à finir
+    (number.includes('%') && number.includes('-')){
+      const resultPercentOperation = eval(firstNumberPercent - numberAddToPercent);
+      console.log(resultPercentOperation, 'mon fucking resultat');
+      setNumber( number => resultPercentOperation) ; 
+     }
+    else
    { console.log(number, 'fdsfdsfsdf');
     const operator = eval(number.replace("--", '+'));
    // console.log(operator, 'operator');

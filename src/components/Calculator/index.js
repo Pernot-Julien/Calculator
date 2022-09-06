@@ -34,6 +34,12 @@ const Calculator = () => {
 
  const handleNumberClick = (event) => {
     setNumber(number => number += event.target.value);
+    if(number.length > 6) {
+     const limitedLengthNumber = number.substr(0, 7);
+     setNumber(number => limitedLengthNumber);
+    }
+     
+    
   };
 
   const handleEqualClick = (event) => {

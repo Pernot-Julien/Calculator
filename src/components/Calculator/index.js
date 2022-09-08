@@ -33,25 +33,25 @@ const Calculator = () => {
  };
 
  const handleNumberClick = (event) => {
-    setNumber(number => number += event.target.value);
-  };
+      setNumber(number => number += event.target.value);
+    };
 
   const handleEqualClick = (event) => {
     if(number.includes('%') && number.includes('+')) {
       const resultPercentOperation = eval(firstNumberPercent + numberAddToPercent);
-      console.log(resultPercentOperation, 'mon fucking resultat');
+      console.log(resultPercentOperation, 'mon resultat');
       setNumber( number => resultPercentOperation) ;
     } else if                                                                        //! gestion de la soustraction du pourcentage à finir
     (number.includes('%') && number.includes('-')){
       const resultPercentOperation = eval(firstNumberPercent - numberAddToPercent);
-      console.log(resultPercentOperation, 'mon fucking resultat');
+      console.log(resultPercentOperation, 'mon resultat');
       setNumber( number => resultPercentOperation) ; 
      }
     else
-   { console.log(number, 'fdsfdsfsdf');
+   { console.log(number, 'mon state number');
     const operator = eval(number.replace("--", '+'));
    // console.log(operator, 'operator');
-    const substrOperator = operator.toString().substr(0, 7);
+    const substrOperator = operator.toString().substr(0, number.length);
     setEqual(equal=> substrOperator);
     setNumber(number => substrOperator);}
   };
@@ -90,7 +90,7 @@ const Calculator = () => {
   return(
   <div className="calculator">
     <p className="brand">caz-io</p>
-    <div className="screen">{ number }</div>
+    <div className="screen"><div className="wrap">{ number }</div></div>
       <div className="container">
       <button className="grid-item blue" onClick={handleClearButton} >AC</button>
       <button className="grid-item blue" onClick={handleNegativeClick} value="-" >+/-</button>

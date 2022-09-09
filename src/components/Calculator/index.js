@@ -18,17 +18,36 @@ const Calculator = () => {
    // console.log(reverseString[i], 'valeur de mon index');
     if (reverseString[i] == '+' || reverseString[i] == '/' ||reverseString[i] == '*'){
      const numberCut =reverseString.slice(0, i).reverse().join('');
-     setNumberPercent (numberPercent => numberCut);
+     console.log(numberCut, 'numberCut');
+     setNumberPercent (() => numberCut);
      const numberWithoutPercent = number.replace('%', '');
-     console.log(numberWithoutPercent, 'mon number sans le %');
-     const numberToApplyPercent = (eval(numberWithoutPercent) - numberCut);
+     console.log(numberWithoutPercent, 'mon opération sans le %'); //! nombre faux dans le cas d'une soustraction avec pourcentage
+
+     const numberToApplyPercent = (eval(numberWithoutPercent) - numberCut); //! (50 + 5)-(5) ou (50-5)-(5)=> problème ici
      console.log (numberToApplyPercent, 'Mon nombre auquel je dois appliquer le %')
+
      setFirstNumberPercent(firstNumberPercent => numberToApplyPercent);
      console.log(numberCut, 'pourcentage à appliquer');
      const numberToAdd = ((numberToApplyPercent * numberCut) / 100);
      console.log(numberToAdd, 'resultat du pourcentage a additionner a number')
      setNumberAddToPercent(numberAddToPercent => numberToAdd);
-    };
+
+
+    } else if( reverseString[i] == '-') {
+      const numberCut =reverseString.slice(0, i).reverse().join('');
+      const NumberCutToNumber = parseInt(numberCut, 10)
+      console.log(typeof NumberCutToNumber, '% number');
+      setNumberPercent (numberPercent => numberCut);
+      const numberWithoutPercent = number.replace('%', '');
+      console.log(numberWithoutPercent, 'mon opération sans le %');
+      const numberToApplyPercent = eval(numberWithoutPercent) + NumberCutToNumber;
+      console.log(numberToApplyPercent, 'Mon nombre auquel je dois appliquer le %');
+      setFirstNumberPercent(firstNumberPercent => numberToApplyPercent);
+      console.log(numberCut, 'pourcentage à appliquer');
+      const numberToAdd = ((numberToApplyPercent * numberCut) / 100);
+      console.log(numberToAdd, 'resultat du pourcentage a additionner a number')
+      setNumberAddToPercent(numberAddToPercent => numberToAdd);
+    }
   };
  };
 
@@ -41,7 +60,7 @@ const Calculator = () => {
       const resultPercentOperation = eval(firstNumberPercent + numberAddToPercent);
       console.log(resultPercentOperation, 'mon resultat');
       setNumber( number => resultPercentOperation) ;
-    } else if                                                                        //! gestion de la soustraction du pourcentage à finir
+    } else if                                                                     
     (number.includes('%') && number.includes('-')){
       const resultPercentOperation = eval(firstNumberPercent - numberAddToPercent);
       console.log(resultPercentOperation, 'mon resultat');
